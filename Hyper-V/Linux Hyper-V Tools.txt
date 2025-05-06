@@ -1,0 +1,31 @@
+sudo apt-get update
+sudo apt-get install linux-azure
+
+
+Set Static IP
+https://ostechnix.com/configure-static-ip-address-ubuntu/
+
+ls /etc/netplan/
+sudo nano /etc/netplan/01-network-manager-all.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens18:
+      dhcp4: no
+      addresses:
+        - 192.168.1.22/24
+      routes:
+        - to: default
+          via: 192.168.1.101
+      nameservers:
+          addresses: [8.8.8.8, 8.8.4.4]
+
+Cntl + X
+
+sudo netplan try
+
+sudo apt update
+sudo apt install network-manager
+sudo nmtui
+sudo systemctl restart NetworkManager
